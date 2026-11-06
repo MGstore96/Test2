@@ -18,10 +18,14 @@ function setMsg(htmlContent, type) {
     if(!msgsElem) return;
     
     msgsElem.className = ""; 
-    if (type === "success") {
+    // Reset warna border kembali ke hijau jika sebelumnya error
+    msgsElem.parentElement.style.borderLeftColor = "var(--console-green)";
+
+    if (type === "success" || type === "running") {
         msgsElem.classList.add("success");
     } else if (type === "error") {
         msgsElem.classList.add("error");
+        msgsElem.parentElement.style.borderLeftColor = "var(--console-red)";
     }
     msgsElem.innerHTML = htmlContent;
 }
@@ -59,14 +63,14 @@ if (window.applicationCache) {
 
 <div class="container">
     <div class="logo-container">
-        <img src="logo.png" alt="Logo MGstore" class="logo">
+        <img src="logo.png" alt="Logo MGstore" class="logo" onerror="this.style.display='none'">
     </div>
 
-    <!-- Tag div penutup telah diperbaiki di semua file -->
     <div class="header-title">Webkit By MG Store</div>
     
     <div class="status-card">
         <div id="msgs">Memulai Instalasi Cache...</div>
+        <!-- Progress bar diselaraskan -->
         <div class="progress-container">
             <div id="pbar" class="progress-bar"></div>
         </div>
@@ -94,7 +98,7 @@ if (window.applicationCache) {
 </div>
 
 <footer>
-    <p>&copy; MGstore Webkit Host</p>
+    <p>root@mgstore:~$ exit_</p>
 </footer>
 
 </body>
