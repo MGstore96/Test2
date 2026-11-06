@@ -15,16 +15,17 @@ var isPS4 = match !== null;
 var fwVersion = isPS4 ? match[1] : "Unknown";
 var fwNum = parseFloat(fwVersion);
 
-// Helper function untuk mengubah pesan dan warna (dari index.html)
 function setMsg(htmlContent, type) {
     var msgsElem = document.getElementById("msgs");
     if(!msgsElem) return;
     
-    msgsElem.className = ""; // Reset class
+    msgsElem.className = ""; 
     if (type === "success") {
         msgsElem.classList.add("success");
     } else if (type === "error") {
         msgsElem.classList.add("error");
+        // Update border parent khusus untuk tema terminal
+        msgsElem.parentElement.style.borderLeftColor = "var(--console-red)";
     }
     msgsElem.innerHTML = htmlContent;
 }
@@ -38,7 +39,6 @@ if (!isPS4) {
         setMsg("Hanya Untuk PS4 Firmware 5.05 dan 7.00 sampai 14.00", "error");
     });
 } else {
-    // Logika Cache - Diselaraskan dengan penambahan versi 14.00
     if (window.applicationCache.status == '0') {
         if (fwNum == 5.05 || fwNum == 5.07) {
             window.location.replace("cache505.html");
@@ -52,11 +52,10 @@ if (!isPS4) {
             window.location.replace("cacheslopkit.html");
         } else {
             document.addEventListener("DOMContentLoaded", () => {
-                setMsg('Unsupported Firmware: <span style="color: red;">' + fwVersion + '</span>', "error");
+                setMsg('Unsupported Firmware: ' + fwVersion, "error");
             });
         }
     } else {
-        // Logika Eksekusi Payload - Termasuk fwNum == 14.00 dari index1.html
         if (fwNum == 5.05 || fwNum == 5.07) {
             var script = document.createElement('script');
             script.src = "505/exploit.js";
@@ -121,12 +120,10 @@ if (!isPS4) {
 </script>
 
 <div class="container">
-    <!-- Container Logo Tengah Atas -->
     <div class="logo-container">
-        <img src="logo.png" alt="Logo MGstore" class="logo">
+        <img src="logo.png" alt="Logo MGstore" class="logo" onerror="this.style.display='none'">
     </div>
 
-    <!-- Perbaikan tag penutup yang sebelumnya hilang di index.html -->
     <div class="header-title">Webkit By MG Store</div>
     
     <div class="status-card">
@@ -155,7 +152,7 @@ if (!isPS4) {
 </div>
 
 <footer>
-    <p>&copy; MGstore Webkit Host</p>
+    <p>root@mgstore:~$ exit_</p>
 </footer>
 
 </body>
