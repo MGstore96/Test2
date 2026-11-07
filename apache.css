@@ -11,18 +11,21 @@ body {
     background-color: var(--bg-color);
     color: var(--console-green);
     font-family: "Courier New", Courier, monospace;
-    margin: 0;
-    padding: 30px 15px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding: 20px;
+    text-align: center;
 }
 
 .container {
     width: 100%;
-    max-width: 750px;
-    border: 1px solid var(--console-green);
-    padding: 25px;
+    max-width: 880px;
+    padding: 30px 20px;
+    margin: auto;
+    border: 3px solid var(--console-green);
     background-color: #050505;
     box-sizing: border-box;
 }
@@ -124,12 +127,5 @@ body {
 
 .credit-item::before {
     content: "[+] ";
-    color: var(--console-gray);
-}
-
-footer {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 0.85rem;
     color: var(--console-gray);
 }
