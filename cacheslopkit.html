@@ -18,7 +18,6 @@ function setMsg(htmlContent, type) {
     if(!msgsElem) return;
     
     msgsElem.className = ""; 
-    // Reset warna border kembali ke hijau jika sebelumnya error
     msgsElem.parentElement.style.borderLeftColor = "var(--console-green)";
 
     if (type === "success" || type === "running") {
