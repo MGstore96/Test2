@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="id" manifest="900.manifest">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5.05 - 14.00 Webkit by MGstore</title>
+<title>7.00 - 14.02 Webkit by MGstore</title>
 <link rel="stylesheet" href="apache.css">
 </head>
 <body>
@@ -18,10 +17,13 @@ function setMsg(htmlContent, type) {
     if(!msgsElem) return;
     
     msgsElem.className = ""; 
-    if (type === "success") {
+    msgsElem.parentElement.style.borderLeftColor = "var(--console-green)";
+
+    if (type === "success" || type === "running") {
         msgsElem.classList.add("success");
     } else if (type === "error") {
         msgsElem.classList.add("error");
+        msgsElem.parentElement.style.borderLeftColor = "var(--console-red)";
     }
     msgsElem.innerHTML = htmlContent;
 }
@@ -59,10 +61,9 @@ if (window.applicationCache) {
 
 <div class="container">
     <div class="logo-container">
-        <img src="logo.png" alt="Logo MGstore" class="logo">
+        <img src="logo.png" alt="Logo MGstore" class="logo" onerror="this.style.display='none'">
     </div>
 
-    <!-- Tag div penutup telah diperbaiki di semua file -->
     <div class="header-title">Webkit By MG Store</div>
     
     <div class="status-card">
@@ -92,10 +93,5 @@ if (window.applicationCache) {
         </div>
     </div>
 </div>
-
-<footer>
-    <p>&copy; MGstore Webkit Host</p>
-</footer>
-
 </body>
 </html>
