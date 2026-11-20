@@ -20,7 +20,7 @@ function next(){
  line("Mengunduh "+f+" ...");
  function finish(ok,msg){if(done)return;done=true;if(!ok)failed++;line((ok?"OK ":"GAGAL ")+f+" | "+msg,ok?"ok":"bad");next();}
  x.open("GET",f,true);x.responseType="arraybuffer";x.timeout=30000;
- x.onload=function(){var size=x.response&&x.response.byteLength!==undefined?x.response.byteLength:0;var ct=x.getResponseHeader("Content-Type")||"tanpa Content-Type";finish(x.status>=200&&x.status<300&&size>0,"HTTP "+x.status+" | "+size+" byte | "+ct);};
+ x.onload=function(){var size=x.response&&x.response.byteLength!==undefined?x.response.byteLength:0;var ct=x.getResponseHeader("Content-Type")||"tanpa Content-Type";var cc=x.getResponseHeader("Cache-Control")||"(tidak ada)",etag=x.getResponseHeader("ETag")||"(tidak ada)",cl=x.getResponseHeader("Content-Length")||"(tidak ada)";var extra=" | Cache-Control: "+cc+" | ETag: "+etag+" | Content-Length: "+cl;if(f==="slopkit.manifest"&&x.response){var b=new Uint8Array(x.response),sample="";for(var j=0;j<Math.min(b.length,160);j++)sample+=String.fromCharCode(b[j]);extra+=" | Awal manifest: "+sample.replace(/\r/g,"\\r").replace(/\n/g,"\\n");}finish(x.status>=200&&x.status<300&&size>0,"HTTP "+x.status+" | "+size+" byte | "+ct+extra);};
  x.onerror=function(){finish(false,"ERROR jaringan");};
  x.ontimeout=function(){finish(false,"TIMEOUT 30 detik");};
  try{x.send();}catch(e){finish(false,"EXCEPTION "+e);}
