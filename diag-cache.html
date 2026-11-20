@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="id"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnostik Cache MG Store</title>
+<style>body{background:#111;color:#eee;font:14px monospace;padding:16px}h2{color:#7f7}pre{white-space:pre-wrap;word-break:break-word} .ok{color:#7f7}.bad{color:#f77}</style>
+<h2>Diagnostik File Cache MG Store</h2><p>Memeriksa respons HTTP setiap file di Cloudflare. Tunggu sampai selesai.</p><pre id="out">Mulai...</pre>
+<script>
+var files=[
+"slopkit.manifest","logo.png","apache.css","goldhen_2.4b18.13.bin","goldhen_2.4b18.14.bin","index.html",
+"slopkit/afterglow.js","slopkit/chain_lapse.js","slopkit/chain_poops.js","slopkit/core.js?v=10","slopkit/core.js",
+"slopkit/int64.js","slopkit/jb.js?v=19","slopkit/jb2.js","slopkit/mem.js","slopkit/ps4_offsets.js","slopkit/rpc_worker.js",
+"slopkit/patches/1150.bin","slopkit/patches/1200.bin","slopkit/patches/1250.bin","slopkit/patches/1300.bin","slopkit/patches/1302.bin","slopkit/patches/1350.bin","slopkit/patches/1352.bin","slopkit/patches/1400.bin"
+];
+var out=document.getElementById("out"),i=0;
+function next(){
+ if(i>=files.length){out.textContent+="\nSELESAI. Kirim foto hasil pemeriksaan ini.";return;}
+ var f=files[i++],x=new XMLHttpRequest();
+ x.open("HEAD",f,true);x.timeout=15000;
+ x.onreadystatechange=function(){if(x.readyState===4){var good=x.status>=200&&x.status<400;out.innerHTML+="<span class='"+(good?"ok":"bad")+"'>"+(good?"OK ":"GAGAL ")+x.status+" | "+f+" | "+(x.getResponseHeader("Content-Type")||"tanpa Content-Type")+" | "+(x.getResponseHeader("Content-Length")||"ukuran tidak diketahui")+"</span>\n";next();}};
+ x.onerror=function(){out.innerHTML+="<span class='bad'>ERROR jaringan | "+f+"</span>\n";next();};
+ x.ontimeout=function(){out.innerHTML+="<span class='bad'>TIMEOUT | "+f+"</span>\n";next();};
+ x.send();
+}
+next();
+</script></html>
